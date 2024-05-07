@@ -10,7 +10,7 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
       const response = await fetch(
-        `http://localhost:5000/todos/${todo.todo_id}`,
+        `https://todolist-4zb8.onrender.com/todos/${todo.todo_id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

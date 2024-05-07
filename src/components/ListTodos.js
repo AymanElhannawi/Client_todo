@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import axios from "axios";
 import EditTodo from "./EditTodo";
 
 const ListTodos = () => {
@@ -9,11 +10,9 @@ const ListTodos = () => {
   const deleteTodo = async (id, isComplete = false) => {
     try {
       const url = isComplete
-        ? `http://localhost:5000/complete/${id}`
-        : `http://localhost:5000/todos/${id}`;
-      const deleteTodo = await fetch(url, {
-        method: "DELETE"
-      });
+        ? `https://todolist-4zb8.onrender.com/complete/${id}`
+        : `https://todolist-4zb8.onrender.com/todos/${id}`;
+      await axios.delete(url);
 
       if (isComplete) {
         setCompleteTodos(completeTodos.filter(todo => todo.comp_id !== id));
@@ -27,9 +26,7 @@ const ListTodos = () => {
 
   const completeTodo = async id => {
     try {
-      const response = await fetch(`http://localhost:5000/todos/complete/${id}`, {
-        method: "PUT"
-      });
+      await axios.put(`https://todolist-4zb8.onrender.com/todos/complete/${id}`);
 
       setTodos(todos.filter(todo => todo.todo_id !== id));
     } catch (err) {
@@ -39,10 +36,8 @@ const ListTodos = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/todos");
-      const jsonData = await response.json();
-
-      setTodos(jsonData);
+      const response = await axios.get("https://todolist-4zb8.onrender.com/todos");
+      setTodos(response.data);
     } catch (err) {
       console.error(err.message);
     }
@@ -50,10 +45,8 @@ const ListTodos = () => {
 
   const getCompleteTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/complete");
-      const jsonData = await response.json();
-
-      setCompleteTodos(jsonData);
+      const response = await axios.get("https://todolist-4zb8.onrender.com/complete");
+      setCompleteTodos(response.data);
     } catch (err) {
       console.error(err.message);
     }
@@ -90,7 +83,6 @@ const ListTodos = () => {
             {completeTodos.map(todo => (
               <tr key={todo.comp_id}>
                 <td>{todo.description}</td>
-                
                 <td>
                   <button
                     className="btn btn-danger"
