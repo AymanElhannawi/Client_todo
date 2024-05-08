@@ -9,8 +9,8 @@ const ListTodos = () => {
   const deleteTodo = async (id, isComplete = false) => {
     try {
       const url = isComplete
-        ? `http://localhost:5000/complete/${id}`
-        : `http://localhost:5000/todos/${id}`;
+        ? `https://todo-server-o0q1.onrender.com/complete/${id}`
+        : `https://todo-server-o0q1.onrender.com/todos/${id}`;
       const deleteTodo = await fetch(url, {
         method: "DELETE"
       });
@@ -27,7 +27,7 @@ const ListTodos = () => {
 
   const completeTodo = async id => {
     try {
-      const response = await fetch(`http://localhost:5000/todos/complete/${id}`, {
+      const response = await fetch(`https://todo-server-o0q1.onrender.com/todos/complete/${id}`, {
         method: "PUT"
       });
 
@@ -39,7 +39,7 @@ const ListTodos = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/todos");
+      const response = await fetch("https://todo-server-o0q1.onrender.com/todos");
       const jsonData = await response.json();
 
       setTodos(jsonData);
@@ -50,7 +50,7 @@ const ListTodos = () => {
 
   const getCompleteTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/complete");
+      const response = await fetch("https://todo-server-o0q1.onrender.com/complete");
       const jsonData = await response.json();
 
       setCompleteTodos(jsonData);
